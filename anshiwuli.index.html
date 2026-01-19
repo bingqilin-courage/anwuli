@@ -1,0 +1,369 @@
+```
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高一上学期知识手册下载中心 | 全科资料</title>
+    <meta name="description" content="高一上学期各学科知识手册PDF下载 - 语文、数学、英语、物理、化学、生物、历史、地理、政治">
+    <meta name="keywords" content="高一,上学期,知识手册,高中学习资料,PDF下载,全科资料">
+    <meta name="author" content="安老师学习资料库">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        /* 内联基础样式 */
+        :root {
+            --primary-color: #4a6bff;
+            --secondary-color: #6c63ff;
+            --success-color: #36d399;
+            --warning-color: #fbbd23;
+            --danger-color: #f87272;
+            --dark-color: #2d3748;
+            --light-color: #f7fafc;
+            --gray-color: #a0aec0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <div class="logo-text">
+                    <span class="logo-title">高一学习资料库</span>
+                    <span class="logo-subtitle">上学期知识手册</span>
+                </div>
+            </div>
+            <div class="nav-info">
+                <span class="update-badge">
+                    <i class="fas fa-sync-alt"></i> 最新更新: 2024年1月
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 头部横幅 -->
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    高一上学期<span class="highlight">全科知识手册</span>
+                </h1>
+                <p class="hero-description">
+                    精心整理的高一上学期各学科知识要点，涵盖语文、数学、英语、物理、化学、生物、历史、地理、政治九大学科，PDF格式方便打印学习。
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-book-open"></i>
+                        <div>
+                            <span class="stat-number">9</span>
+                            <span class="stat-label">个学科</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-file-pdf"></i>
+                        <div>
+                            <span class="stat-number">98.8</span>
+                            <span class="stat-label">MB 总大小</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-download"></i>
+                        <div>
+                            <span class="stat-number" id="totalDownloads">0</span>
+                            <span class="stat-label">次下载</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="book-stack">
+                    <div class="book book-1"></div>
+                    <div class="book book-2"></div>
+                    <div class="book book-3"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="container">
+        <!-- 搜索和筛选 -->
+        <div class="search-section">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="搜索学科或关键词...">
+                <button id="clearSearch" class="clear-btn" title="清除搜索">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="filter-options">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-layer-group"></i> 全部学科
+                </button>
+                <button class="filter-btn" data-filter="理科">
+                    <i class="fas fa-flask"></i> 理科
+                </button>
+                <button class="filter-btn" data-filter="文科">
+                    <i class="fas fa-book"></i> 文科
+                </button>
+                <button class="filter-btn" data-filter="language">
+                    <i class="fas fa-language"></i> 语言类
+                </button>
+            </div>
+        </div>
+
+        <!-- 文件列表 -->
+        <div class="files-container">
+            <div class="section-header">
+                <h2><i class="fas fa-file-alt"></i> 知识手册列表</h2>
+                <div class="sort-controls">
+                    <span>排序:</span>
+                    <select id="sortSelect">
+                        <option value="default">默认顺序</option>
+                        <option value="name">按名称</option>
+                        <option value="size">按大小</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="files-grid" id="filesGrid">
+                <!-- 文件卡片通过JavaScript动态生成 -->
+            </div>
+
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="fas fa-search fa-3x"></i>
+                <h3>未找到相关文件</h3>
+                <p>请尝试其他搜索关键词或筛选条件</p>
+            </div>
+        </div>
+
+        <!-- 使用说明 -->
+        <div class="instructions">
+            <h3><i class="fas fa-info-circle"></i> 使用说明</h3>
+            <div class="instruction-cards">
+                <div class="instruction-card">
+                    <div class="instruction-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h4>下载文件</h4>
+                    <p>点击"下载"按钮直接下载PDF文件，建议使用电脑下载以获得更好的体验。</p>
+                </div>
+                <div class="instruction-card">
+                    <div class="instruction-icon">
+                        <i class="fas fa-print"></i>
+                    </div>
+                    <h4>打印学习</h4>
+                    <p>下载后可使用Adobe Reader等PDF阅读器打开，支持打印成纸质版学习。</p>
+                </div>
+                <div class="instruction-card">
+                    <div class="instruction-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h4>移动学习</h4>
+                    <p>PDF文件支持在手机和平板上阅读，可随时随地复习知识点。</p>
+                </div>
+                <div class="instruction-card">
+                    <div class="instruction-icon">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                    <h4>分享学习</h4>
+                    <p>可将本网站分享给同学，共同学习进步。请勿用于商业用途。</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 底部 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-school"></i> 关于资料</h4>
+                    <p>本网站提供高一上学期各学科知识手册，所有资料均为PDF格式，方便学生下载学习。</p>
+                </div>
+                <div class="footer-section">
+                    <h4><i class="fas fa-exclamation-triangle"></i> 免责声明</h4>
+                    <p>本网站资料仅供学习交流使用，请尊重版权。如有版权问题，请联系我们处理。</p>
+                </div>
+                <div class="footer-section">
+                    <h4><i class="fas fa-code"></i> 技术支持</h4>
+                    <p>本网站基于GitHub Pages构建，如需技术支持或反馈问题，请通过GitHub Issues联系我们。</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 高一上学期知识手册下载中心 | 基于GitHub Pages部署</p>
+                <p class="footer-note">
+                    <i class="fas fa-heart"></i> 为学习而生，为进步而存
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 下载确认弹窗 -->
+    <div class="modal" id="downloadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-download"></i> 确认下载</h3>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="modalFileName">正在准备下载...</p>
+                <div class="modal-info">
+                    <p><i class="fas fa-info-circle"></i> 文件较大，建议在WiFi环境下下载</p>
+                    <p><i class="fas fa-clock"></i> 下载时间约 <span id="downloadTime">30秒</span></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="modalCancel">取消</button>
+                <a href="#" class="btn btn-primary" id="modalDownloadLink" download>
+                    <i class="fas fa-download"></i> 确认下载
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script>
+        // 内联数据，可直接使用
+        const filesData = [
+            {
+                id: 1,
+                name: "高一上地理-知识手册.pdf",
+                filename: "高一上地理-知识手册.pdf",
+                category: "文科",
+                subject: "地理",
+                size: "15.3 MB",
+                sizeInMB: 15.3,
+                date: "2024-01-15",
+                downloads: 0,
+                description: "高一上学期地理知识点全面梳理，包含自然地理和人文地理要点",
+                color: "#34D399"
+            },
+            {
+                id: 2,
+                name: "高一上化学-知识手册.pdf",
+                filename: "高一上化学-知识手册.pdf",
+                category: "理科",
+                subject: "化学",
+                size: "9.7 MB",
+                sizeInMB: 9.7,
+                date: "2024-01-15",
+                downloads: 0,
+                description: "化学基础知识、化学反应、元素周期表等核心内容",
+                color: "#60A5FA"
+            },
+            {
+                id: 3,
+                name: "高一上历史-知识手册.pdf",
+                filename: "高一上历史-知识手册.pdf",
+                category: "文科",
+                subject: "历史",
+                size: "19.3 MB",
+                sizeInMB: 19.3,
+                date: "2024-01-15",
+                downloads: 0,
+                description: "中国古代史、世界古代史重要事件和时间线整理",
+                color: "#F87171"
+            },
+            {
+                id: 4,
+                name: "高一上生物-知识手册.pdf",
+                filename: "高一上生物-知识手册.pdf",
+                category: "理科",
+                subject: "生物",
+                size: "1.1 MB",
+                sizeInMB: 1.1,
+                date: "2024-01-15",
+                downloads: 0,
+                description: "细胞结构、遗传基础、生物进化等基础知识",
+                color: "#10B981"
+            },
+            {
+                id: 5,
+                name: "高一上数学-知识手册.pdf",
+                filename: "高一上数学-知识手册.pdf",
+                category: "理科",
+                subject: "数学",
+                size: "8.4 MB",
+                sizeInMB: 8.4,
+                date: "2024-01-15",
+                downloads: 0,
+                description: "集合、函数、三角函数、立体几何等核心知识点",
+                color: "#8B5CF6"
+            },
+            {
+                id: 6,
+                name: "高一上物理-知识手册.pdf",
+                filename: "高一上物理-知识手册.pdf",
+                category: "理科",
+                subject: "物理",
+                size: "4.4 MB",
+                sizeInMB: 4.4,
+                date: "2024-01-15",
+                downloads: 0,
+                description: "力学、运动学、牛顿定律等物理基础知识总结",
+                color: "#F59E0B"
+            },
+            {
+                id: 7,
+                name: "高一上英语-知识手册.pdf",
+                filename: "高一上英语-知识手册.pdf",
+                category: "language",
+                subject: "英语",
+                size: "13.6 MB",
+                sizeInMB: 13.6,
+                date: "2024-01-15",
+                downloads: 0,
+                description: "高一英语词汇、语法、阅读理解和写作技巧",
+                color: "#3B82F6"
+            },
+            {
+                id: 8,
+                name: "高一上语文-知识手册.pdf",
+                filename: "高一上语文-知识手册.pdf",
+                category: "language",
+                subject: "语文",
+                size: "14.6 MB",
+                sizeInMB: 14.6,
+                date: "2024-01-15",
+                downloads: 0,
+                description: "文言文、现代文阅读、作文技巧及文学常识",
+                color: "#EF4444"
+            },
+            {
+                id: 9,
+                name: "高一上政治-知识手册.pdf",
+                filename: "高一上政治-知识手册.pdf",
+                category: "文科",
+                subject: "政治",
+                size: "12.4 MB",
+                sizeInMB: 12.4,
+                date: "2024-01-15",
+                downloads: 0,
+                description: "经济学基础、政治学常识、哲学入门等内容",
+                color: "#6366F1"
+            }
+        ];
+    </script>
+</body>
+</html>
+```
+
